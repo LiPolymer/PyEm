@@ -1,0 +1,16 @@
+<ci:ActionSettingsControlBase x:TypeArguments="local:ScriptConfig" x:Class="PythonEntanglement.Island.ScriptAction"
+                              xmlns="https://github.com/avaloniaui"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:local="clr-namespace:PythonEntanglement.Island"
+                              xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                              mc:Ignorable="d">
+    <StackPanel Orientation="Horizontal" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:ScriptAction}}">
+        <Button Click="SelectFile" Padding="8,6,8,6" Margin="0,0,3,0" Content="{ci:LucideIcon &#xE338;}" FontSize="18" />
+        <TextBox Text="{Binding Settings.Path, Mode=TwoWay}" MinWidth="50" MaxWidth="100"/>
+        <Label Content=" > "/>
+        <TextBox Text="{Binding Settings.EntryPoint, Mode=TwoWay}" MinWidth="50" MaxWidth="100" HorizontalContentAlignment="Right"/>
+        <Label Content="( )"/>
+    </StackPanel>
+</ci:ActionSettingsControlBase>

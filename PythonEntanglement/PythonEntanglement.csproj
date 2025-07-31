@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<EnableDynamicLoading>True</EnableDynamicLoading>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ClassIslandPluginSdkVersion>1.6.0.5</ClassIslandPluginSdkVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ClassIsland.PluginSdk" Version="1.7.104-dev-v2">
+			<ExcludeAssets>runtime; native</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="pythonnet" Version="3.1.0-preview2024-09-06" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="manifest.yml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="README.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="icon.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="injected.py" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Island\ScriptAction.axaml.cs">
+	    <DependentUpon>ScriptAction.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Island\ScriptRule.axaml.cs">
+	    <DependentUpon>ScriptRule.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+</Project>
