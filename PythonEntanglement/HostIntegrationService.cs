@@ -5,9 +5,10 @@ namespace PythonEntanglement;
 
 public class HostIntegrationService: IHostedService {
     public static ILessonsService? LessonsService;
-
-    public HostIntegrationService(ILessonsService lessonsService) {
+    public static IActionService? ActionService;
+    public HostIntegrationService(ILessonsService lessonsService, IActionService actionService) {
         LessonsService = lessonsService;
+        ActionService = actionService;
     }
     
     public Task StartAsync(CancellationToken cancellationToken) {
