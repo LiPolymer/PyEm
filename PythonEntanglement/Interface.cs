@@ -31,7 +31,7 @@ public class Interface {
         public void invoke(string json) {
             try {
                 ObservableCollection<Action>? obj = JsonSerializer.Deserialize<ObservableCollection<Action>>(json);
-                Console.WriteLine(obj == null ? "null" : "not null");
+                if (obj == null) return;
                 ActionSet acts = new ActionSet {
                     Actions = obj
                 };
@@ -44,6 +44,25 @@ public class Interface {
         }
         
         public void sendSignal(string signal) {
+            //todo: 修改为一个阳间的实现
+            string actions = """
+                             [
+                                 {
+                                     "Id": "classisland.broadcastSignal",
+                                     "Settings": {
+                                         "SignalName": "
+                             """ + signal +
+                             """
+                             ",
+                                         "IsRevert": false,
+                                         "IsActive": false
+                                     },
+                                     "IsActive": false
+                                 }
+                             ]
+                             """;
+            Console.WriteLine(actions);
+            invoke(actions);
         }
     }
 }
