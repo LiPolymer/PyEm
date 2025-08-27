@@ -1,12 +1,8 @@
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
 using System.Text.Json;
 using ClassIsland.Core;
 using ClassIsland.Core.Abstractions.Services;
-using ClassIsland.Shared.Models.Action;
-using Microsoft.Win32;
-using Python.Runtime;
-using Action = ClassIsland.Shared.Models.Action.Action;
+using ClassIsland.Shared.Models.Automation;
 
 // ReSharper disable InconsistentNaming
 
@@ -30,12 +26,12 @@ public class Interface {
     public class ActionSetManagerClass {
         public void invoke(string json) {
             try {
-                ObservableCollection<Action>? obj = JsonSerializer.Deserialize<ObservableCollection<Action>>(json);
+                ObservableCollection<ActionItem>? obj = JsonSerializer.Deserialize<ObservableCollection<ActionItem>>(json);
                 if (obj == null) return;
                 ActionSet acts = new ActionSet {
-                    Actions = obj
+                    ActionItems = obj
                 };
-                HostIntegrationService.ActionService!.Invoke(acts);
+                HostIntegrationService.ActionService!.InvokeActionSetAsync(acts).Wait();
             }
             catch(Exception e) {
                 Console.WriteLine(e.Message);
@@ -61,7 +57,7 @@ public class Interface {
                                  }
                              ]
                              """;
-            Console.WriteLine(actions);
+            //Console.WriteLine(actions);
             invoke(actions);
         }
     }

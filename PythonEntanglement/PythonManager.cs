@@ -37,11 +37,28 @@ public static class PythonManager {
         using (Py.GIL()) {
             while (IsEngineEnabled) {
                 if (Queue.Count == 0) continue;
+                Console.WriteLine("来活力");
                 PythonExecutionInfo myinfo = Queue.First();
                 using (PyModule scope = Py.CreateScope()) {
+                    Console.WriteLine("创建域");
                     scope.Set("ciInterface",myinfo.Interface.ToPython());
-                    scope.Exec(myinfo.Code);
+                    List<string> codeStack = [];
+                    //todo:直接在此注入dummy.py
+                    foreach (string line in myinfo.Code.Split('\n')) {
+                        if (line.Contains("from dummy import Interface")) continue;
+                        if (line.Contains(":Interface")) {
+                            codeStack.Add(line.Replace(":Interface",""));
+                        } else if (line.Contains(": Interface")) {
+                            codeStack.Add(line.Replace(": Interface",""));
+                        } else {
+                            codeStack.Add(line);
+                        }
+                    }
+                    Console.WriteLine("处理完成");
+                    scope.Exec(string.Join("\n",codeStack));
+                    Console.WriteLine("注入完成");
                     scope.Exec($"result = {myinfo.EntryPoint}(ciInterface)");
+                    Console.WriteLine("执行完成");
                     myinfo.Result = scope.Get<object?>("result");
                     myinfo.Completion?.Set();
                 }

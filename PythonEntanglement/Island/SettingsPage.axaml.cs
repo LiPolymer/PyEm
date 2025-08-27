@@ -12,6 +12,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace PythonEntanglement.Island;
 
+[HidePageTitle]
 [SettingsPageInfo("pyem.master","PyEm","\uE829","\uE828")]
 public partial class SettingsPage : SettingsPageBase {
     public Configuration Settings { get; set; }

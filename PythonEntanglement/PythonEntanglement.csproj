@@ -12,7 +12,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ClassIsland.PluginSdk" Version="1.7.104-dev-v2">
+		<PackageReference Include="ClassIsland.PluginSdk" Version="1.7.105-dev-v2">
 			<ExcludeAssets>runtime; native</ExcludeAssets>
 		</PackageReference>
 		<PackageReference Include="pythonnet" Version="3.1.0-preview2024-09-06" />
