@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Text.Json;
+using Avalonia.Threading;
 using ClassIsland.Core;
 using ClassIsland.Core.Abstractions.Services;
 using ClassIsland.Shared.Models.Automation;
@@ -24,14 +25,22 @@ public class Interface {
     public ActionSetManagerClass action = new ActionSetManagerClass();
     
     public class ActionSetManagerClass {
-        public void invoke(string json) {
+        public void invoke(string json, bool isAsync = true) {
             try {
                 ObservableCollection<ActionItem>? obj = JsonSerializer.Deserialize<ObservableCollection<ActionItem>>(json);
                 if (obj == null) return;
                 ActionSet acts = new ActionSet {
                     ActionItems = obj
                 };
-                HostIntegrationService.ActionService!.InvokeActionSetAsync(acts).Wait();
+                if (isAsync) {
+                    Dispatcher.UIThread.InvokeAsync(async() => {
+                        await HostIntegrationService.ActionService!.InvokeActionSetAsync(acts);
+                    });   
+                } else {
+                    Dispatcher.UIThread.Invoke(() => {
+                        HostIntegrationService.ActionService!.InvokeActionSetAsync(acts).Wait();
+                    });   
+                }
             }
             catch(Exception e) {
                 Console.WriteLine(e.Message);

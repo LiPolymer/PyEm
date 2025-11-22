@@ -1,8 +1,11 @@
 id: ink.lipoly.ext.pyem
 name: PythonEntanglement
-description: 
+description: (Buggy)在ClassIsland中使用Python进行自动化!
 entranceAssembly: "PythonEntanglement.dll"
 url: https://example.com
-version: 0.0.0.0
-apiVersion: 1.6.0
+version: 0.0.0.1
+apiVersion: 2.0.0.0
 author: LiPolymer
+repoOwner: LiPolymer
+repoName: ExtraIsland
+assetsRoot: master/ExtraIsland
